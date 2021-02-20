@@ -17,12 +17,20 @@ class Book extends Model
         'title',
         'author',
         'first_sentence',
+        'read_statuses_id',
+        'read_order',
         'first_published_at',
+        'started_at',
+        'completed_at',
+        'added_at',
         'openlibrary_data_retrieved_at',
     ];
 
     public $dates = [
         'first_published_at',
+        'started_at',
+        'completed_at',
+        'added_at',
         'openlibrary_data_retrieved_at',
     ];
 
