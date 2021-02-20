@@ -44,7 +44,6 @@ class BookFactory extends Factory
             'first_sentence' => $this->faker->sentence,
             'started_at' => $startedAt,
             'completed_at' => $completedAt,
-            'added_at' => $openLibraryDataRetrievedAt,
             'first_published_at' => $this->faker->dateTimeBetween('-2000 years', 'yesterday'),
             'openlibrary_data_retrieved_at' => $openLibraryDataRetrievedAt,
         ];

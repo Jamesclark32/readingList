@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -33,6 +34,19 @@ class Book extends Model
         'added_at',
         'openlibrary_data_retrieved_at',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            // If a record is being created with a null added_at
+            // Then set it to the current datetime
+            if (!array_key_exists('added_at', $model->attributes) || $model->attributes['added_at'] == null) {
+                $model->attributes['added_at'] = Carbon::now();
+            }
+        });
+    }
 
     /**
      * Get the options for building the slug as described
