@@ -45,16 +45,16 @@ class Book extends Model
         static::creating(function ($model) {
             // If a record is being created with a null added_at
             // Then set it to the current datetime
-            if (Arr::get($this->attributes, 'added_at', null) === null) {
+            if (Arr::get($model->attributes, 'added_at') == null) {
                 $model->attributes['added_at'] = Carbon::now();
             }
 
             // If a record is being created with a null read_sequence
             // Then set it to the current max + 1
             // Good point to consider in any performance optimization as a query is being added to every create here.
-            if (Arr::get($this->attributes, 'read_sequence', null) === null) {
-                $maxReadOrder = DB::table('books')->max('read_order');
-                $model->attributes['read_order'] = $maxReadOrder + 1;
+            if (Arr::get($model->attributes, 'read_sequence', null) === null) {
+                $maxReadOrder = DB::table('books')->max('read_sequence');
+                $model->attributes['read_sequence'] = $maxReadOrder + 1;
             }
         });
     }
