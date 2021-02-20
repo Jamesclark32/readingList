@@ -33,6 +33,6 @@ class StoreBookTest extends TestCase
             'title' => null,
         ]);
 
-        $response->assertStatus(302);
+        $response->assertStatus(422);
     }
 }
