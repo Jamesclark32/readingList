@@ -41,7 +41,6 @@ class BookFactory extends Factory
             'isbn' => $this->faker->isbn13,
             'title' => implode(' ', $this->faker->words(rand(1, 4))),
             'author' => $this->faker->name,
-            'first_sentence' => $this->faker->sentence,
             'started_at' => $startedAt,
             'completed_at' => $completedAt,
             'first_published_at' => $this->faker->dateTimeBetween('-2000 years', 'yesterday'),

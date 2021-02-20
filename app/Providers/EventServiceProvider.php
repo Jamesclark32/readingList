@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        \App\Events\Models\Book\Saving::class => [
+            \App\Listeners\Models\Book\BookSaving\FetchOpenLibraryDetails::class,
+        ],
     ];
 
     /**

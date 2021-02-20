@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Bus\DatabaseBatchRepository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -20,8 +19,6 @@ class Book extends Model
         'isbn',
         'title',
         'author',
-        'first_sentence',
-        'read_statuses_id',
         'read_sequence',
         'first_published_at',
         'started_at',
@@ -36,6 +33,10 @@ class Book extends Model
         'completed_at',
         'added_at',
         'openlibrary_data_retrieved_at',
+    ];
+
+    protected $dispatchesEvents = [
+        'saving' => \App\Events\Models\Book\Saving::class,
     ];
 
     protected static function boot()

@@ -18,10 +18,9 @@ class CreateBooksTable extends Migration
 
             $table->string('slug');
 
-            $table->string('isbn')->unique()->nullable();
+            $table->string('isbn')->nullable();
             $table->string('title');
             $table->string('author')->nullable();
-            $table->longText('first_sentence')->nullable();
             $table->date('first_published_at')->nullable();
 
             $table->decimal('read_sequence')->nullable();

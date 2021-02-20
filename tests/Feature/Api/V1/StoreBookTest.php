@@ -4,11 +4,20 @@ namespace Tests\Feature\Api\V1;
 
 use App\Models\Book;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class StoreBookTest extends TestCase
 {
     use DatabaseMigrations;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        Event::fake([
+            \App\Events\Models\Book\Saving::class,
+        ]);
+    }
 
     public function test_url_writes_submitted_book_data_to_database()
     {
