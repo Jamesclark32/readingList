@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Http\Api\v1\Book;
+namespace Tests\Unit\Http\Api\v1\Book;
 
 use App\Domain\Commands\Api\V1\Books\StoreCommand;
 use App\Models\Book;

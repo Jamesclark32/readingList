@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
                 'string',
             ],
             'author' => [
-                'optional',
+                'nullable',
                 'string',
             ],
         ];

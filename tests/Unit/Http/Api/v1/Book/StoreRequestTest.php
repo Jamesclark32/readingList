@@ -1,17 +1,15 @@
 <?php
 
-namespace Tests\Feature\Http\Api\v1\Book;
+namespace Tests\Unit\Http\Api\v1\Book;
 
 use App\Http\Controllers\Api\V1\Books\StoreController;
 use App\Http\Requests\Api\V1\Books\StoreRequest;
-use Tests\Feature\TestsRequestValidation;
+use Tests\Unit\TestsRequestValidation;
 use Tests\TestCase;
 
 class StoreRequestTest extends TestCase
 {
     use TestsRequestValidation;
-
-    protected $routeName = 'api.v1.books.store';
 
     public function test_store_validates_using_form_request()
     {
@@ -33,7 +31,7 @@ class StoreRequestTest extends TestCase
                 'string',
             ],
             'author' => [
-                'optional',
+                'nullable',
                 'string',
             ],
         ];
