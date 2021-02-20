@@ -60,7 +60,6 @@ class BookFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'isbn' => null,
-                'first_sentence' => null,
                 'openlibrary_data_retrieved_at' => null,
             ];
         });
