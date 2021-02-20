@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Http\Api\v1\Book;
+namespace Tests\Unit\Http\Api\v1\Book\Store;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;

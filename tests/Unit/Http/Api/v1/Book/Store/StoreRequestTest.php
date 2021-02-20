@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Http\Api\v1\Book;
+namespace Tests\Unit\Http\Api\v1\Book\Store;
 
 use App\Http\Controllers\Api\V1\Books\StoreController;
 use App\Http\Requests\Api\V1\Books\StoreRequest;
