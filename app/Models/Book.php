@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Bus\DatabaseBatchRepository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -19,7 +22,7 @@ class Book extends Model
         'author',
         'first_sentence',
         'read_statuses_id',
-        'read_order',
+        'read_sequence',
         'first_published_at',
         'started_at',
         'completed_at',
@@ -42,8 +45,16 @@ class Book extends Model
         static::creating(function ($model) {
             // If a record is being created with a null added_at
             // Then set it to the current datetime
-            if (!array_key_exists('added_at', $model->attributes) || $model->attributes['added_at'] == null) {
+            if (Arr::get($this->attributes, 'added_at', null) === null) {
                 $model->attributes['added_at'] = Carbon::now();
+            }
+
+            // If a record is being created with a null read_sequence
+            // Then set it to the current max + 1
+            // Good point to consider in any performance optimization as a query is being added to every create here.
+            if (Arr::get($this->attributes, 'read_sequence', null) === null) {
+                $maxReadOrder = DB::table('books')->max('read_order');
+                $model->attributes['read_order'] = $maxReadOrder + 1;
             }
         });
     }

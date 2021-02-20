@@ -24,7 +24,7 @@ class CreateBooksTable extends Migration
             $table->longText('first_sentence')->nullable();
             $table->date('first_published_at')->nullable();
 
-            $table->decimal('read_order')->nullable();
+            $table->decimal('read_sequence')->nullable();
 
             $table->dateTime('added_at');
             $table->dateTime('started_at')->nullable();
