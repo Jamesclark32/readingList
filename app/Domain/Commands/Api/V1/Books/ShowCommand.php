@@ -8,7 +8,9 @@ class ShowCommand
 {
     public function process(Book $book): array
     {
-        $book->coverImage = asset('storage/book-covers/'.$book->slug.'.jpg');
+        if ($book->cover_image_uri) {
+            $book->cover_image_src = asset('storage/'.$book->cover_image_uri);
+        }
 
         return [
             'book' => $book,

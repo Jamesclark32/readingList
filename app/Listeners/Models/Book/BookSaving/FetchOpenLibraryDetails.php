@@ -4,7 +4,6 @@ namespace App\Listeners\Models\Book\BookSaving;
 
 use App\Events\Models\Book\Saving;
 use App\Helpers\OpenLibrary;
-use GuzzleHttp\Client;
 use Illuminate\Support\Arr;
 
 class FetchOpenLibraryDetails
@@ -36,9 +35,8 @@ class FetchOpenLibraryDetails
             $data = $this->openLibraryHelper->search($book->title, $book->author);
             $book->isbn = Arr::get($data, 'isbn');
             $book->first_published_at = Arr::get($data, 'first_published_at');
+            $book->cover_image_uri = Arr::get($data, 'cover_image_uri');
             $book->save();
-
-            $this->openLibraryHelper->fetchCover($book->isbn, $book->slug);
         }
     }
 }

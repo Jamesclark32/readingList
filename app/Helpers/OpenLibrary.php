@@ -18,26 +18,45 @@ class OpenLibrary
         $data = $this->resolveUrl($url);
         $records = $data->docs;
 
-        $firstRecord = Arr::get($records, 0);
+        $matchingRecord = Arr::get($records, 0);
+        foreach ($records as $record) {
+            $titleMatches = $this->propertyContains($record, 'title', $title);
+            $authorMatches = $this->propertyContains($record, 'author_name', $author);
+            if ($titleMatches && $authorMatches) {
+                $matchingRecord = $record;
+            }
+        }
 
-        if ($firstRecord) {
+        if ($matchingRecord) {
+            $isbn = Arr::get($matchingRecord->isbn, 0);
+
+            $coverId = $this->getProperty($matchingRecord, 'cover_i');
+
+            $coverImageUri = null;
+
+            if ($coverId) {
+                $coverImageUri = $this->fetchCover($coverId, $isbn);
+            }
+
             return [
-                'isbn' => Arr::get($firstRecord->isbn, 0),
-                'first_published_at' => Carbon::parse(Arr::get($firstRecord->publish_date, 0),),
+                'isbn' => $isbn,
+                'cover_image_uri' => $coverImageUri,
+                'first_published_at' => Carbon::parse(Arr::get($matchingRecord->publish_date, 0),),
             ];
         }
     }
 
-    public function fetchCover(string $isbn, string $slug)
+    public function fetchCover(string $coverId, string $isbn)
     {
-        $url = 'https://openlibrary.org/api/books?bibkeys=ISBN:'.$isbn.'&format=json';
-        $data = $this->resolveUrl($url);
-
-        $coverImageData = $this->extractCoverImageUrlFromResponse($isbn, $data);
+        $coverUrl = 'https://covers.openlibrary.org/b/id/'.$coverId.'-L.jpg';
+        $coverImageData = @file_get_contents($coverUrl);
 
         if ($coverImageData) {
-            Storage::disk('local')->put('public/book-covers/'.$slug.'.jpg', $coverImageData);
+            $coverImageUri = $this->getCoverImageUri($isbn);
+            Storage::disk('local')->put('public/'.$coverImageUri, $coverImageData);
+            return $coverImageUri;
         }
+        return null;
     }
 
     protected function buildUrl(string $uri, array $parameters): string
@@ -52,15 +71,33 @@ class OpenLibrary
         return @json_decode(file_get_contents($url));
     }
 
-    protected function extractCoverImageUrlFromResponse(string $isbn, $data)
+    protected function propertyContains($object, $property, $value): bool
     {
-        $elementName = 'ISBN:'.$isbn;
-
-        if (property_exists($data->$elementName, 'thumbnail_url')) {
-            $coverImageUrl = $data->$elementName->thumbnail_url;
-            $coverImageUrl = str_replace('-S.jpg', '-M.jpg', $coverImageUrl);
-            return file_get_contents($coverImageUrl);
+        if (! property_exists($object, $property)) {
+            return false;
         }
-        return null;
+        $propertyValue = $object->$property;
+
+        if (! is_array($propertyValue)) {
+            $propertyValue = [$propertyValue];
+        }
+
+        $propertyValue = array_map('strtolower', $propertyValue);
+
+        return (in_array(strtolower($value), $propertyValue));
     }
+
+    protected function getProperty($object, $property)
+    {
+        if (! property_exists($object, $property)) {
+            return null;
+        }
+        return $object->$property;
+    }
+
+    protected function getCoverImageUri(string $isbn): string
+    {
+        return 'book-covers/'.$isbn.'.jpg';
+    }
+
 }

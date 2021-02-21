@@ -3925,6 +3925,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -21690,7 +21695,7 @@ var render = function() {
             expression: "orderedBooksKey"
           }
         ],
-        staticClass: "p-0 pl-5 pr-10 rounded bg-indigo-100 text-xs",
+        staticClass: "p-0 pl-5 pr-10 rounded bg-gray-100 text-xs",
         on: {
           change: function($event) {
             var $$selectedVal = Array.prototype.filter
@@ -21730,7 +21735,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "rounded bg-indigo-200 text-indigo-900 border border-indigo-300 px-2 py-0 text-xs shadow-sm",
+                    "rounded bg-indigo-100 text-indigo-900 border border-indigo-200 px-2 py-0 text-xs shadow-sm",
                   on: {
                     click: function($event) {
                       return _vm.showBook(book)
@@ -21744,7 +21749,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "rounded bg-red-200 text-red-900 border border-red-300 px-2 py-0 text-xs shadow-sm",
+                    "rounded bg-red-100 text-red-900 border border-red-200 px-2 py-0 text-xs shadow-sm",
                   on: {
                     click: function($event) {
                       return _vm.deleteBook(book)
@@ -21969,10 +21974,20 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("div", [
-                            _c("img", {
-                              staticClass: "shadow",
-                              attrs: { src: _vm.activeBook.coverImage }
-                            })
+                            _vm.activeBook.cover_image_src
+                              ? _c("div", [
+                                  _c("img", {
+                                    staticClass: "shadow-md",
+                                    attrs: {
+                                      src: _vm.activeBook.cover_image_src
+                                    }
+                                  })
+                                ])
+                              : _c("div", [
+                                  _vm._v(
+                                    "\n              Cover Image Not Available :'(\n            "
+                                  )
+                                ])
                           ])
                         ])
                       ]
@@ -22004,7 +22019,7 @@ var render = function() {
                 ],
                 null,
                 false,
-                2854480914
+                3227524168
               )
             })
           : _vm._e()
@@ -22018,7 +22033,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "bg-indigo-300" }, [
+    return _c("thead", { staticClass: "bg-gray-300" }, [
       _c("tr", [
         _c("th", { staticClass: "px-5" }, [_vm._v("\n        Action\n      ")]),
         _vm._v(" "),

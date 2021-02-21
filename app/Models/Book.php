@@ -19,6 +19,7 @@ class Book extends Model
         'isbn',
         'title',
         'author',
+        'cover_image_uri',
         'read_sequence',
         'first_published_at',
         'started_at',

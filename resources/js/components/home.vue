@@ -5,13 +5,13 @@
       Add a book
     </button>
 
-    Sorted by <select v-model="orderedBooksKey" class="p-0 pl-5 pr-10 rounded bg-indigo-100 text-xs">
+    Sorted by <select v-model="orderedBooksKey" class="p-0 pl-5 pr-10 rounded bg-gray-100 text-xs">
     <option value="title">Title</option>
     <option value="author">Author</option>
     <option value="read_sequence">Read Order</option>
   </select>
     <table>
-      <thead class="bg-indigo-300">
+      <thead class="bg-gray-300">
       <tr>
         <th class="px-5">
           Action
@@ -31,11 +31,11 @@
       <tr v-for="book in orderedBooks">
         <td>
           <button @click="showBook(book)"
-                  class="rounded bg-indigo-200 text-indigo-900 border border-indigo-300 px-2 py-0 text-xs shadow-sm">
+                  class="rounded bg-indigo-100 text-indigo-900 border border-indigo-200 px-2 py-0 text-xs shadow-sm">
             Show
           </button>
           <button @click="deleteBook(book)"
-                  class="rounded bg-red-200 text-red-900 border border-red-300 px-2 py-0 text-xs shadow-sm">Delete
+                  class="rounded bg-red-100 text-red-900 border border-red-200 px-2 py-0 text-xs shadow-sm">Delete
           </button>
         </td>
         <td class="text-sm text-center">
@@ -108,7 +108,12 @@
               <div class="text-sm">Read Order Position: {{ activeBook.read_sequence }}</div>
             </div>
             <div>
-              <img :src="activeBook.coverImage" class="shadow-md">
+              <div v-if="activeBook.cover_image_src">
+                <img :src="activeBook.cover_image_src" class="shadow-md">
+              </div>
+              <div v-else>
+                Cover Image Not Available :'(
+              </div>
             </div>
           </div>
 
