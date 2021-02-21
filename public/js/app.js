@@ -3930,6 +3930,79 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -3942,10 +4015,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       books: {},
       addBookModalDisplayed: false,
+      editBookModalDisplayed: false,
       newBookTitle: null,
       newBookAuthor: null,
       orderedBooksKey: 'read_sequence',
       showActiveBookModalDisplayed: false,
+      editActiveBookModalDisplayed: false,
       activeBook: {}
     };
   },
@@ -3961,6 +4036,10 @@ __webpack_require__.r(__webpack_exports__);
           _this.reloadBooks();
         });
       }
+    },
+    editBook: function editBook(book) {
+      this.activeBook = _.clone(book);
+      this.editActiveBookModalDisplayed = true;
     },
     showBook: function showBook(book) {
       var _this2 = this;
@@ -3991,6 +4070,23 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.addBookModalDisplayed = false;
       this.clearBookForm();
+    },
+    submitEditBookForm: function submitEditBookForm() {
+      var _this5 = this;
+
+      axios.post(this.activeBook.updateUrl, {
+        title: this.activeBook.title,
+        author: this.activeBook.author,
+        isbn: this.activeBook.isbn,
+        read_sequence: this.activeBook.read_sequence
+      }).then(function (response) {
+        _this5.reloadBooks();
+
+        _this5.editActiveBookModalDisplayed = false;
+      });
+    },
+    cancelEditBookForm: function cancelEditBookForm() {
+      this.editActiveBookModalDisplayed = false;
     },
     cancelBookForm: function cancelBookForm() {
       this.addBookModalDisplayed = false;
@@ -21749,6 +21845,20 @@ var render = function() {
                 "button",
                 {
                   staticClass:
+                    "rounded bg-yellow-100 text-yellow-900 border border-yellow-200 px-2 py-0 text-xs shadow-sm",
+                  on: {
+                    click: function($event) {
+                      return _vm.editBook(book)
+                    }
+                  }
+                },
+                [_vm._v("\n          Edit\n        ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
                     "rounded bg-red-100 text-red-900 border border-red-200 px-2 py-0 text-xs shadow-sm",
                   on: {
                     click: function($event) {
@@ -22020,6 +22130,253 @@ var render = function() {
                 null,
                 false,
                 3227524168
+              )
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.editActiveBookModalDisplayed
+          ? _c("modal", {
+              scopedSlots: _vm._u(
+                [
+                  {
+                    key: "title",
+                    fn: function() {
+                      return [_vm._v("\n        Edit Book\n      ")]
+                    },
+                    proxy: true
+                  },
+                  {
+                    key: "body",
+                    fn: function() {
+                      return [
+                        _c("form", [
+                          _c("div", [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "left-0 block text-sm font-medium text-gray-700 pt-8",
+                                attrs: { for: "title" }
+                              },
+                              [_vm._v("Title")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "mt-0" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.activeBook.title,
+                                    expression: "activeBook.title"
+                                  }
+                                ],
+                                staticClass:
+                                  "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                                attrs: {
+                                  autocomplete: "off",
+                                  name: "title",
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.activeBook.title },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.activeBook,
+                                      "title",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "left-0 block text-sm font-medium text-gray-700 pt-8",
+                                attrs: { for: "author" }
+                              },
+                              [_vm._v("Author")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "mt-0" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.activeBook.author,
+                                    expression: "activeBook.author"
+                                  }
+                                ],
+                                staticClass:
+                                  "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                                attrs: {
+                                  autocomplete: "off",
+                                  name: "author",
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.activeBook.author },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.activeBook,
+                                      "author",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "left-0 block text-sm font-medium text-gray-700 pt-8",
+                                attrs: { for: "isbn" }
+                              },
+                              [_vm._v("ISBN")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "mt-0" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.activeBook.isbn,
+                                    expression: "activeBook.isbn"
+                                  }
+                                ],
+                                staticClass:
+                                  "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                                attrs: {
+                                  autocomplete: "off",
+                                  name: "isbn",
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.activeBook.isbn },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.activeBook,
+                                      "isbn",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "left-0 block text-sm font-medium text-gray-700 pt-8",
+                                attrs: { for: "read_sequence" }
+                              },
+                              [_vm._v("Read Order")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "mt-0" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.activeBook.read_sequence,
+                                    expression: "activeBook.read_sequence"
+                                  }
+                                ],
+                                staticClass:
+                                  "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                                attrs: {
+                                  autocomplete: "off",
+                                  name: "read_sequence",
+                                  type: "text"
+                                },
+                                domProps: {
+                                  value: _vm.activeBook.read_sequence
+                                },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.activeBook,
+                                      "read_sequence",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ])
+                        ])
+                      ]
+                    },
+                    proxy: true
+                  },
+                  {
+                    key: "footer",
+                    fn: function() {
+                      return [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.submitEditBookForm()
+                              }
+                            }
+                          },
+                          [_vm._v("\n          Save\n        ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.cancelEditBookForm()
+                              }
+                            }
+                          },
+                          [_vm._v("\n          Cancel\n        ")]
+                        )
+                      ]
+                    },
+                    proxy: true
+                  }
+                ],
+                null,
+                false,
+                3453042182
               )
             })
           : _vm._e()

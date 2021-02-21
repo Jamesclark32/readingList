@@ -41,6 +41,10 @@ class IndexQuery
             'book' => $book->slug,
         ]);
 
+        $book->updateUrl = route('api.v1.books.update', [
+            'book' => $book->slug,
+        ]);
+
         return $book;
     }
 }

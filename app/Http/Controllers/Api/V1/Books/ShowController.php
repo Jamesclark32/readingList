@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Books;
 
-use App\Domain\Commands\Api\V1\Books\ShowCommand;
+use App\Domain\Queries\Api\V1\Books\ShowQuery;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Illuminate\Http\JsonResponse;
@@ -13,13 +13,13 @@ class ShowController extends Controller
      * Handle the incoming request.
      *
      * @param  Book  $book
-     * @param  ShowCommand  $command
+     * @param  ShowQuery  $command
      *
      * @return JsonResponse
      */
-    public function __invoke(Book $book, ShowCommand $command): JsonResponse
+    public function __invoke(Book $book, ShowQuery $command): JsonResponse
     {
-        $command->process($book);
+        $command->getData($book);
 
         return response()->json([
             'book' => $book,
