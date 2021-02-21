@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\V1;
 
+use App\Jobs\Models\Books\Resequence;
 use App\Models\Book;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Event;
@@ -16,12 +17,13 @@ class DestroyBookTest extends TestCase
         parent::setUp();
         Event::fake([
             \App\Events\Models\Book\Saving::class,
-            \App\Jobs\Models\Books\Resequence::class,
         ]);
     }
 
     public function test_url_deletes_submitted_book_data_from_database()
     {
+        $this->expectsJobs(Resequence::class);
+
         $bookData = Book::factory()->unretrieved()->create();
 
         $this->assertDatabaseHas('books', [
