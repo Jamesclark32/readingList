@@ -1,18 +1,19 @@
 <?php
 
-namespace Tests\Unit\Http\Api\v1\Book\Index;
+namespace Tests\Unit\Http\Api\v1\Book\Show;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Tests\CreatesApplication;
 use Tests\TestCase;
 
-class IndexRouteTest extends TestCase
+class ShowRouteTest extends TestCase
 {
     use CreatesApplication;
 
-    protected $routeName = 'api.v1.books.index';
-    protected $routeController = 'App\Http\Controllers\Api\V1\Books\IndexController';
+    protected $routeName = 'api.v1.books.show';
+    protected $routeController = 'App\Http\Controllers\Api\V1\Books\ShowController';
     protected $routeMethod = '__invoke';
 
     public function test_route_name_exist()
@@ -22,8 +23,12 @@ class IndexRouteTest extends TestCase
 
     public function test_route_resolves_to_expected_url()
     {
-         $resolvedUrl = route($this->routeName);
-        $this->assertSame(url('/api/v1/books'), $resolvedUrl);
+        $slug = Str::random();
+
+        $resolvedUrl = route($this->routeName, [
+            'book' => $slug,
+        ]);
+        $this->assertSame(url('/api/v1/books/'.$slug), $resolvedUrl);
     }
 
     public function test_route_resolves_to_expected_controller()
