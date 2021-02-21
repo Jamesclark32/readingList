@@ -23,7 +23,7 @@ class CreateBooksTable extends Migration
             $table->string('author')->nullable();
             $table->date('first_published_at')->nullable();
 
-            $table->decimal('read_sequence')->nullable();
+            $table->unsignedInteger('read_sequence')->nullable();
 
             $table->dateTime('added_at');
             $table->dateTime('started_at')->nullable();

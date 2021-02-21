@@ -36,7 +36,7 @@ class OpenLibrary
         $coverImageData = $this->extractCoverImageUrlFromResponse($isbn, $data);
 
         if ($coverImageData) {
-            Storage::disk('local')->put('book-covers/'.$slug.'.jpg', $coverImageData);
+            Storage::disk('local')->put('public/book-covers/'.$slug.'.jpg', $coverImageData);
         }
     }
 
@@ -49,7 +49,7 @@ class OpenLibrary
     {
         //@TODO: getting a 404 out of Guzzle for unknown reasons here.
         //using file_get_contents as temporary work around.
-        return json_decode(file_get_contents($url));
+        return @json_decode(file_get_contents($url));
     }
 
     protected function extractCoverImageUrlFromResponse(string $isbn, $data)

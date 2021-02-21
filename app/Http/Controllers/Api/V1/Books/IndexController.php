@@ -17,10 +17,8 @@ class IndexController extends Controller
      */
     public function __invoke(IndexQuery $query): JsonResponse
     {
-        $books = $query->getData();
+        $viewData = $query->getData();
 
-        return response()->json([
-            'books' => $books,
-        ]);
+        return response()->json($viewData);
     }
 }
