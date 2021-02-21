@@ -31,11 +31,11 @@
       <tr v-for="book in orderedBooks">
         <td>
           <button @click="showBook(book)"
-                  class="rounded bg-indigo-100 text-indigo-900 border border-indigo-200 px-2 py-0 text-xs shadow-sm">
+                  class="rounded bg-indigo-50 text-indigo-900 border border-indigo-100 px-2 py-0 text-xs shadow-sm">
             Show
           </button>
           <button @click="editBook(book)"
-                  class="rounded bg-yellow-100 text-yellow-900 border border-yellow-200 px-2 py-0 text-xs shadow-sm">
+                  class="rounded bg-indigo-50 text-indigo-900 border border-indigo-100 px-2 py-0 text-xs shadow-sm">
             Edit
           </button>
           <button @click="deleteBook(book)"

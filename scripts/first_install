@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+// Load env data from .env.example, update with db password, and write to .env
+$envData = file_get_contents('.env.example');
+file_put_contents('.env', $envData);
+
+// Execute all relevant composer, artisan, and npm commands
+shell_exec('composer install -o --no-interaction');
+shell_exec('php artisan key:generate');
+shell_exec('php artisan storage:link');
+shell_exec('php artisan migrate --no-interaction --force');
+shell_exec('npm install');
+
+// Output something so we know execution completed successfully
+echo 'First Install Process Completed.'.PHP_EOL;

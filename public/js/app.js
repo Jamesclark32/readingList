@@ -21831,7 +21831,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "rounded bg-indigo-100 text-indigo-900 border border-indigo-200 px-2 py-0 text-xs shadow-sm",
+                    "rounded bg-indigo-50 text-indigo-900 border border-indigo-100 px-2 py-0 text-xs shadow-sm",
                   on: {
                     click: function($event) {
                       return _vm.showBook(book)
@@ -21845,7 +21845,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "rounded bg-yellow-100 text-yellow-900 border border-yellow-200 px-2 py-0 text-xs shadow-sm",
+                    "rounded bg-indigo-50 text-indigo-900 border border-indigo-100 px-2 py-0 text-xs shadow-sm",
                   on: {
                     click: function($event) {
                       return _vm.editBook(book)
