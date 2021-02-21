@@ -16,6 +16,7 @@ class DestroyBookTest extends TestCase
         parent::setUp();
         Event::fake([
             \App\Events\Models\Book\Saving::class,
+            \App\Jobs\Models\Books\Resequence::class,
         ]);
     }
 

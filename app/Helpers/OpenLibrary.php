@@ -28,7 +28,7 @@ class OpenLibrary
         }
 
         if ($matchingRecord) {
-            $isbn = Arr::get($matchingRecord->isbn, 0);
+            $isbn = $this->getProperty($matchingRecord, 'isbn');
 
             $coverId = $this->getProperty($matchingRecord, 'cover_i');
 
@@ -38,12 +38,18 @@ class OpenLibrary
                 $coverImageUri = $this->fetchCover($coverId, $isbn);
             }
 
+            $firstPublished = $this->getProperty($matchingRecord, 'publish_date');
+            if ($firstPublished) {
+                $firstPublished = Carbon::parse($firstPublished);
+            }
+
             return [
                 'isbn' => $isbn,
                 'cover_image_uri' => $coverImageUri,
-                'first_published_at' => Carbon::parse(Arr::get($matchingRecord->publish_date, 0),),
+                'first_published_at' => $firstPublished,
             ];
         }
+        return [];
     }
 
     public function fetchCover(string $coverId, string $isbn)
@@ -92,7 +98,13 @@ class OpenLibrary
         if (! property_exists($object, $property)) {
             return null;
         }
-        return $object->$property;
+        $data = $object->$property;
+
+        if (is_array($data)) {
+            $data = Arr::get($data, 0);
+        }
+
+        return $data;
     }
 
     protected function getCoverImageUri(string $isbn): string
