@@ -47,6 +47,18 @@ string **read_sequence**
 
 <hr>
 
+### A note on coding style
+
+I'm in the practice of favoring lots of small files over a few large files, but believe in only doing this when the right abstraction is found. 
+
+This plays out in things like breaking the routes down into smaller, more digestable files.
+
+I also use command and query helper classes in controllers. I feel like controllers often get abused, and have landed on the mindset that the responsibility of a controller is to translate to and from HTTP. Injecting a "plain old php object" to handle the rest feels clean to me.
+
+I welcome any discussion around these perspectives!
+
+<hr>
+
 ### Destroy
 
 DELETE /api/v1/books/{book-slug}
